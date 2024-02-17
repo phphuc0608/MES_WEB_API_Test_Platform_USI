@@ -1,5 +1,5 @@
 <template>
-  <div class="home p-3 mt-3" id="content">
+  <div class="home p-3 mt-3 scrollspy" id="content">
     <div class="router py-2">MANUAL TEST | GET_ORT_SN_INFO_BY_LOCATION</div>
     <form class="col-md-12">
       <div class="title py-2">INPUT</div>
@@ -22,8 +22,9 @@
         </div>
       </div>
       <button type="button" class="btn btn-primary my-3 px-3">TEST</button>
+      <button type="button" class="btn btn-success mx-3 my-3 px-3">EXPORT REPORT</button>
     </form>
-    <div class="title py-2">OUTPUT</div>
+    <!-- <div class="title py-2">RES DATA:</div>
     <div id="result_table" class="col-md-12">
       <div class="table-responsive">
         <table class="table table-striped table-bordered custom-width">
@@ -63,17 +64,72 @@
           </tbody>
         </table>
       </div>
+    </div> -->
+    <div class="col-md-12">
+      <div class="title">RESULT:
+        <span :style="{ color: result === 'OK' ? 'green' : 'red' }">{{ result }}</span>
+      </div>
     </div>
-  </div>
+    <div class="col-md-12 res_data_container">
+      <div class="title">RES DATA:</div>
+        <pre class="res_data_text">{{ JSON.stringify(res_data, null, 2) }}</pre>
+      </div>
+    </div>
 </template>
 
 <script>
-// @ is an alias to /src
 export default {
   name: 'HomeView', 
   data(){
     return {
-      input: []
+      result: 'OK',
+      res_data: [
+        {						
+          "NO": "1",						
+          "PANEL_SN": "HA5026110207Y6",						
+          "SERIAL_NUMBER": "HMH22730HAJ17PK5Z",						
+          "MO_NUMBER": "1000112-VZR301",						
+          "CONFIG": "VZR3",						
+          "SN_SEQ": "1",						
+          "LOCATION": "R2110",						
+          "REEL_ID": "TC-0220623-2989",						
+          "COMP_PART_NO": "107S00328-01",						
+          "LOT_NO": "LM2111308",						
+          "DATE_CODE": "20220422",						
+          "VENDOR": "THIN FILM",						
+          "APN": ""						
+        },						
+        {						
+          "NO": "2",						
+          "PANEL_SN": "HA5026110207Y6",						
+          "SERIAL_NUMBER": "HMH22730HAM17PK5W",						
+          "MO_NUMBER": "1000112-VZR301",						
+          "CONFIG": "VZR3",						
+          "SN_SEQ": "4",						
+          "LOCATION": "R2110",						
+          "REEL_ID": "TC-0220623-2989",						
+          "COMP_PART_NO": "107S00328-01",						
+          "LOT_NO": "LM2111308",						
+          "DATE_CODE": "20220422",						
+          "VENDOR": "THIN FILM",						
+          "APN": ""						
+        },						
+        {						
+          "NO": "3",						
+          "PANEL_SN": "HA5026110207Y6",						
+          "SERIAL_NUMBER": "HMH22730HAK17PK5Y",						
+          "MO_NUMBER": "1000112-VZR301",						
+          "CONFIG": "VZR3",						
+          "SN_SEQ": "2",						
+          "LOCATION": "R2110",						
+          "REEL_ID": "TC-0220623-2989",						
+          "COMP_PART_NO": "107S00328-01",						
+          "LOT_NO": "LM2111308",						
+          "DATE_CODE": "20220422",						
+          "VENDOR": "THIN FILM",						
+          "APN": ""						
+        }						
+      ]
     }
   },
 }
@@ -82,7 +138,6 @@ export default {
 <style scoped>
 #content{
   background-color: white;
-  border-radius: 20px;
 }
 .router{
   font-size: 15px;
@@ -94,8 +149,19 @@ export default {
   font-weight: bold;
   color: #1C3096;
 }
-
 .form-control{
 border: 1px black solid!important;;
 }
+.scrollspy {
+    position: relative;
+    height: 510px;
+    margin-top: .5rem;
+    overflow: auto;
+}
+.res_data_container{
+    border: 1px solid #1E1E1E;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+  }
 </style>
