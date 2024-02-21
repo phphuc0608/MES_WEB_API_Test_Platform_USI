@@ -1,0 +1,30 @@
+#content{
+  background-color: white;
+}
+.router{
+  font-size: 15px;
+  font-weight: bold;
+  color: #1C3096;
+}
+.title{
+  font-size: 20px;
+  font-weight: bold;
+  color: #1C3096;
+}
+
+.form-control{
+border: 1px black solid!important;;
+}
+
+.scrollspy {
+    position: relative;
+    height: 510px;
+    margin-top: .5rem;
+    overflow: auto;
+}
+.res_data_container{
+    border: 1px solid #1E1E1E;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+  }
