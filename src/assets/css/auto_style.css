@@ -24,7 +24,9 @@
     margin-top: .5rem;
     overflow: auto;
 }
-
+.res_data_text{
+  width: 100%;
+}
   .res_data_container{
     border: 1px solid #1E1E1E;
     padding: 10px;

@@ -24,7 +24,7 @@
       <button type="submit" class="btn btn-primary my-3 px-3" @click.prevent="callApi">
         <i class="bi bi-file-code-fill"></i> TEST
       </button>
-      <button type="button" class="btn btn-success mx-3 my-3 px-3">
+      <button type="button" class="btn btn-success mx-3 my-3 px-3" @click="exportReport">
         <i class="bi bi-file-earmark-spreadsheet-fill"></i> EXPORT REPORT
       </button>
     </form>
@@ -87,7 +87,8 @@
 </template>
 
 <script>
-import '@/assets/css/manual_style.css'
+import '@/assets/css/manual_style.css';
+import { writeFile, utils } from 'xlsx';
 export default {
   name: 'HomeView', 
   data(){
@@ -116,17 +117,46 @@ export default {
         },
         body: JSON.stringify(data)
       })
-        .then((response) => response.json())
-        .then((data) => {
-          this.resData = data.RESULT.RES_DATA; // Assign the response data to resData
-          this.result = data.RESULT.RESULT; // Assign the result to result
-          this.message = data.RESULT.RESULT_MESSAGE; // Assign the message to message
-        })
-        .catch((error) => {
-          console.error(error);
-          this.result = 'Error'; // Assign 'Error' to result in case of an error
-          this.message = error.RESULT.RESULT_MESSAGE; // Assign the error message to message
-        });
+      .then((response) => response.json())
+      .then((data) => {
+        this.resData = data.RESULT.RES_DATA; 
+        this.result = data.RESULT.RESULT; 
+        this.message = data.RESULT.RESULT_MESSAGE; 
+      })
+      .catch((error) => {
+        console.error(error);
+        this.result = 'Error'; 
+        this.message = error.RESULT.RESULT_MESSAGE; 
+      });
+    },
+    exportReport() {
+      const data = [
+        {
+          INPUT: JSON.stringify({
+            Condition: {
+              FUNCTION: this.functionValue,
+              SN_LIST: this.snListValue,
+              APN_LIST : this.apnListValue
+            }
+          }),
+          OUTPUT: JSON.stringify({
+            RESULT: {
+              RESULT: this.result,
+              RESULT_MESSAGE: this.message,
+              RES_DATA: this.resData
+            }
+          })
+        }
+      ];
+      if(data.length > 0){
+        data.unshift({ INPUT: "INPUT", OUTPUT: "OUTPUT" });
+        const worksheet = utils.json_to_sheet(data, { skipHeader: true });
+        const workbook = utils.book_new();
+        utils.book_append_sheet(workbook, worksheet, "Report");
+        writeFile(workbook, "report_manual_apn.xlsx");
+      }else{
+        alert("No Data to Export");
+      }
     }
   }
 }

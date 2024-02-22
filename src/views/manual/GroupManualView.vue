@@ -21,10 +21,10 @@
           </div>
         </div>
       </div>
-      <button type="button" class="btn btn-primary my-3 px-3" @click.prevent="callApi">
+      <button type="submit" class="btn btn-primary my-3 px-3" @click.prevent="callApi">
           <i class="bi bi-file-code-fill"></i> TEST
         </button>
-      <button type="submit" class="btn btn-success mx-3 my-3 px-3">
+      <button type="button" class="btn btn-success mx-3 my-3 px-3" @click="exportReport">
         <i class="bi bi-file-earmark-spreadsheet-fill"></i> EXPORT REPORT
       </button>
     </form>
@@ -87,7 +87,8 @@
 </template>
 
 <script>
-import '@/assets/css/manual_style.css'
+import '@/assets/css/manual_style.css';
+import {writeFile, utils} from 'xlsx';
 export default {
   name: 'GroupManualView', 
   data(){
@@ -127,6 +128,35 @@ export default {
         this.result = 'Error';
         this.message = error.RESULT.RESULT_MESSAGE;
       });
+    },
+    exportReport() {
+      const data = [
+        {
+          INPUT: JSON.stringify({
+            Condition: {
+              FUNCTION: this.functionValue,
+              SN_LIST: this.snListValue,
+              GROUP_NAME: this.groupName
+            }
+          }),
+          OUTPUT: JSON.stringify({
+            RESULT: {
+              RESULT: this.result,
+              RESULT_MESSAGE: this.message,
+              RES_DATA: this.resData
+            }
+          })
+        }
+      ];
+      if(data.length > 0){
+        data.unshift({ INPUT: "INPUT", OUTPUT: "OUTPUT" });
+        const worksheet = utils.json_to_sheet(data, { skipHeader: true });
+        const workbook = utils.book_new();
+        utils.book_append_sheet(workbook, worksheet, "Report");
+        writeFile(workbook, "report_manual_group.xlsx");
+      }else{
+        alert("No Data to Export");
+      }
     }
   }
 }

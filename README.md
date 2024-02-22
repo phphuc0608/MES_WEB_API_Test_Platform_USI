@@ -1,4 +1,4 @@
-# web_api_test
+# Develope test automation platform to do test and generate report automatically created
 
 ## Project setup
 ```

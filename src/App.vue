@@ -1,5 +1,5 @@
 <template>
-<nav class="p-3 d-flex align-items-center navbar navbar-expand-lg" id="navbar_container">
+<nav class="p-3 d-flex align-items-center navbar navbar-expand-lg fixed-top" id="navbar_container">
     <img :src="require('@/assets/logo.png')" class="navbar-brand" alt="Logo">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -28,7 +28,7 @@
         </div>
       </div>
     </div>
-  </nav>
+</nav>
   <router-view/>
 </template>
 
@@ -59,16 +59,13 @@ export default{
 }
 #app {
   background-image: url('@/assets/bg.jpg');
-  height: 100vh;
-  padding: 30px;
+  padding: 100px;
+  /* height: 100vh; */
+  overflow: hidden;
 }
 
 #navbar_container{
   box-shadow: 0 4px 8px 0 rgba(77, 76, 76, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  /* background-image: url('./assets/bg.jfif'); */
-  /* background-position: center;
-  background-repeat: no-repeat; */
-  border-radius: 20px;
   background-color: white;
 }
 #navbar_container .nav-link{

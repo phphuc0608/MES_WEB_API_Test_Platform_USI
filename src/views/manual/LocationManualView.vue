@@ -121,18 +121,17 @@ export default {
       })
         .then((response) => response.json())
         .then((data) => {
-          this.resData = data.RESULT.RES_DATA; // Assign the response data to resData
-          this.result = data.RESULT.RESULT; // Assign the result to result
-          this.message = data.RESULT.RESULT_MESSAGE; // Assign the message to message
+          this.resData = data.RESULT.RES_DATA; 
+          this.result = data.RESULT.RESULT; 
+          this.message = data.RESULT.RESULT_MESSAGE; 
         })
         .catch((error) => {
           console.error(error);
-          this.result = 'Error'; // Assign 'Error' to result in case of an error
-          this.message = error.RESULT.RESULT_MESSAGE; // Assign the error message to message
+          this.result = 'Error'; 
+          this.message = error.RESULT.RESULT_MESSAGE; 
         });
     },
     exportReport() {
-      // Create an array of objects, each object contains input and output
       const data = [
         {
           INPUT: JSON.stringify({
@@ -151,19 +150,15 @@ export default {
           })
         }
       ];
-
-      // Add headers to the data array
-      data.unshift({ INPUT: "INPUT", OUTPUT: "OUTPUT" });
-
-      // Convert the array of objects to a worksheet
-      const worksheet = utils.json_to_sheet(data, { skipHeader: true });
-
-      // Create a new workbook
-      const workbook = utils.book_new();
-      // Append the worksheet to the workbook
-      utils.book_append_sheet(workbook, worksheet, "Report");
-      // Write the workbook to a file
-      writeFile(workbook, "report.xlsx");
+      if(data.length > 0){
+        data.unshift({ INPUT: "INPUT", OUTPUT: "OUTPUT" });
+        const worksheet = utils.json_to_sheet(data, { skipHeader: true });
+        const workbook = utils.book_new();
+        utils.book_append_sheet(workbook, worksheet, "Report");
+        writeFile(workbook, "report_manual_location.xlsx");
+      }else{
+        alert("No Data to Export");
+      }
     }
   }
 };
