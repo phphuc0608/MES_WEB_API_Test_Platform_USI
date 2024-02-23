@@ -301,13 +301,13 @@
             DESCRIPTION: "Description",
             INPUT: "INPUT",
             OUTPUT: "OUTPUT",
-            RESULT_COMPARE: "Result Compare"
+            RESULT_COMPARE: "Testcase results"
           });
 
           const worksheet = utils.json_to_sheet(data, { skipHeader: true });
           const workbook = utils.book_new();
           utils.book_append_sheet(workbook, worksheet, "Report");
-          writeFile(workbook, "report_auto_location.xlsx");
+          writeFile(workbook, "report_group_location.xlsx");
         } else {
           alert("No Data to Export");
         }

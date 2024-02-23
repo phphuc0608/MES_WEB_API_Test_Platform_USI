@@ -340,7 +340,7 @@
             DESCRIPTION: "Description",
             INPUT: "INPUT",
             OUTPUT: "OUTPUT",
-            RESULT_COMPARE: "Result Compare"
+            RESULT_COMPARE: "Testcase results"
           });
 
           const worksheet = utils.json_to_sheet(data, { skipHeader: true });

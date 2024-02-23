@@ -59,8 +59,6 @@ export default{
 }
 #app {
   background-image: url('@/assets/bg.jpg');
-  padding: 100px;
-  /* height: 100vh; */
   overflow: hidden;
 }
 
