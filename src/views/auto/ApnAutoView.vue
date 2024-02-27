@@ -1,6 +1,6 @@
 <template>
     <div class="home p-3 mt-3 scrollspy" id="content">
-      <div class="router py-2">AUTO TEST | GET_ORT_SN_INFO_BY_LOCATION</div>
+      <div class="router py-2">AUTO TEST | GET_ORT_SN_INFO_BY_APN</div>
       <form class="col-md-12" method="post">
         <button type="submit" class="btn btn-primary my-3 px-3" @click.prevent="callApi">
           <i class="bi bi-file-code-fill"></i> TEST
@@ -93,9 +93,8 @@
             function: 'GET_ORT_SN_INFO_BY_APN',
             sn_list: '',
             apn_list: '107S00328',
-            result_expect:'OK',
-            msg_expect:'',
-            resData_expect:[],
+            result_expect:'NG',
+            msg_expect:'SN_LIST is null',
             result_compare: '',
             message_result: '',
             result_result: '',
@@ -108,9 +107,8 @@
             function: 'GET_ORT_SN_INFO_BY_APN',
             sn_list: 'HMH403403KC1W49AUHMH403403HG1W49AWHMH403403K91W49AX',
             apn_list: 'R2110,X2339S',
-            result_expect:'OK',
-            msg_expect:'',
-            resData_expect:[],
+            result_expect:'NG',
+            msg_expect:'Syntax error at SN_LIST',
             result_compare: '',
             message_result: '',
             result_result: '',
@@ -123,9 +121,8 @@
             function: 'GET_ORT_SN_INFO_BY_LOCATION',
             sn_list: 'HMH403403KC1W49AU;HMH403403HG1W49AW;HMH403403K91W49AX',
             apn_list: 'R2110,X2339S',
-            result_expect:'OK',
-            msg_expect:'',
-            resData_expect:[],
+            result_expect:'NG',
+            msg_expect:'Syntax error at SN_LIST',
             result_compare: '',
             message_result: '',
             result_result: '',
@@ -138,9 +135,8 @@
             function: 'GET_ORT_SN_INFO_BY_APN',
             sn_list:'HMH403403KC1W49AU,HMH403403HG1W49AW',
             apn_list: '',
-            result_expect:'OK',
-            msg_expect:'',
-            resData_expect:[],
+            result_expect:'NG',
+            msg_expect:'APN_LIST is null',
             result_compare: '',
             message_result: '',
             result_result: '',
@@ -149,13 +145,12 @@
           {
             id: 5,
             title: 'TEST CASE 5',
-            description:'Wrong FUNCTION name',
-            function: 'GET_ORT_SN_INFO_BY_LOCATIO',
-            sn_list:'HMH22730HAJ17PK5Z,HMH22730HAM17PK5W,HMH22730HAK17PK5Y',
-            apn_list: 'R2110,PCB',
+            description:'APN_LIST is not separated with commas (,)',
+            function: 'GET_ORT_SN_INFO_BY_APN',
+            sn_list:'HMH403403KC1W49AUHMH403403HG1W49AW',
+            apn_list: 'AOI1-F,SIP-FCT3',
             result_expect:'NG',
-            msg_expect:'Can not found Function ST, please contact IT SFIS to check!',
-            // resData_expect:null,
+            msg_expect:'Syntax error at APN_LIST',
             result_compare: '',
             message_result: '',
             result_result: '',
@@ -164,43 +159,102 @@
           {
             id: 6,
             title: 'TEST CASE 6',
-            description: 'APN_LIST is not separated with commas (,) but semicolon (;)',
+            description:'APN_LIST is not separated with commas (,) but semicolon (;)',
             function: 'GET_ORT_SN_INFO_BY_APN',
             sn_list:'HMH403403KC1W49AU,HMH403403HG1W49AW',
             apn_list: 'AOI1-F;SIP-FCT3',
-            result_expect:'OK',
-            msg_expect:'',	
-            resData_expect: [],
+            result_expect:'NG',
+            msg_expect:'Syntax error at APN_LIST',
             result_compare: '',
             message_result: '',
             result_result: '',
-            resData_result: null,			
+            resData_result: null,
           },  
           {
             id: 7,
             title: 'TEST CASE 7',
+            description:'Wrong FUNCTION name',
+            function: 'GET_ORT_SN_INFO_BY_LOCATIO',
+            sn_list:'HMH22730HAJ17PK5Z,HMH22730HAM17PK5W,HMH22730HAK17PK5Y',
+            apn_list: 'R2110,PCB',
+            result_expect:'NG',
+            msg_expect:'Can not found Function ST, please contact IT SFIS to check!',
+            result_compare: '',
+            message_result: '',
+            result_result: '',
+            resData_result: null,
+          },    
+          {
+            id: 8,
+            title: 'TEST CASE 8',
             description: 'SN_LIST and APN_LIST are empty',
             function: 'GET_ORT_SN_INFO_BY_APN',
             sn_list:'',
             apn_list: '',
-            result_expect:'OK',
-            msg_expect:'',		
-            resData_expect: [],
+            result_expect:'NG',
+            msg_expect:'SN_LIST and APN_LIST is null',		
             result_compare: '',
             message_result: '',
             result_result: '',
             resData_result: null,			
           },
           {
-            id: 8,
-            title: 'TEST CASE 7',
+            id: 9,
+            title: 'TEST CASE 9',
             description: 'SN_LIST and APN_LIST are normal',
             function: 'GET_ORT_SN_INFO_BY_APN',
-            sn_list:'HMH403403KC1W49AU,HMH403403HG1W49AW',
-            apn_list: 'AOI1-F,SIP-FCT3',
+            sn_list:'HMH22730HAJ17PK5Z,HMH22730HAM17PK5W,HMH22730HAK17PK5Y',
+            apn_list: '107S00328',
             result_expect:'OK',
             msg_expect:'',		
-            resData_expect: [],
+            resData_expect:
+            [						
+              {						
+                "NO": "1",						
+                "PANEL_SN": "HA5026110207Y6",						
+                "SERIAL_NUMBER": "HMH22730HAJ17PK5Z",						
+                "MO_NUMBER": "1000112-VZR301",						
+                "CONFIG": "VZR3",						
+                "SN_SEQ": "1",						
+                "LOCATION": "R2110",						
+                "REEL_ID": "TC-0220623-2989",						
+                "COMP_PART_NO": "107S00328-01",						
+                "LOT_NO": "LM2111308",						
+                "DATE_CODE": "20220422",						
+                "VENDOR": "THIN FILM",						
+                "APN": "107S00328"						
+              },						
+              {						
+                "NO": "2",						
+                "PANEL_SN": "HA5026110207Y6",						
+                "SERIAL_NUMBER": "HMH22730HAM17PK5W",						
+                "MO_NUMBER": "1000112-VZR301",						
+                "CONFIG": "VZR3",						
+                "SN_SEQ": "4",						
+                "LOCATION": "R2110",						
+                "REEL_ID": "TC-0220623-2989",						
+                "COMP_PART_NO": "107S00328-01",						
+                "LOT_NO": "LM2111308",						
+                "DATE_CODE": "20220422",						
+                "VENDOR": "THIN FILM",						
+                "APN": "107S00328"						
+              },						
+              {						
+                "NO": "3",						
+                "PANEL_SN": "HA5026110207Y6",						
+                "SERIAL_NUMBER": "HMH22730HAK17PK5Y",						
+                "MO_NUMBER": "1000112-VZR301",						
+                "CONFIG": "VZR3",						
+                "SN_SEQ": "2",						
+                "LOCATION": "R2110",						
+                "REEL_ID": "TC-0220623-2989",						
+                "COMP_PART_NO": "107S00328-01",						
+                "LOT_NO": "LM2111308",						
+                "DATE_CODE": "20220422",						
+                "VENDOR": "THIN FILM",						
+                "APN": "107S00328"						
+              }						
+            ],
             result_compare: '',
             message_result: '',
             result_result: '',
@@ -223,7 +277,6 @@
               apn_LIST: apn_list
             },
           };
-          console.log(data);
           try {
             const response = await fetch('http://10.5.0.136:54188/MES_WEB_API/api/mesapi', {
               method: 'POST',
@@ -239,6 +292,7 @@
             testCase.message_result = message_val;
             testCase.result_result = result_val;
             testCase.resData_result = resData_val;
+            console.log(responseData)
           } catch (error) {
             console.error(error);
             testCase.result_result = 'Error';

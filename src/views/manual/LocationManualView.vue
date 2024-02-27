@@ -111,7 +111,7 @@ export default {
           LOCATION_LIST : this.locationListValue
         },
       };
-      // console.log(data);
+      console.log(data);
       fetch('http://10.5.0.136:54188/MES_WEB_API/api/mesapi', {
         method: 'POST',
         headers: {

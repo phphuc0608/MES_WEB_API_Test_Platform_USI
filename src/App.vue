@@ -60,6 +60,7 @@ export default{
 #app {
   background-image: url('@/assets/bg.jpg');
   overflow: hidden;
+  padding: 100px 50px;
 }
 
 #navbar_container{

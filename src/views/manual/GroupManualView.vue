@@ -121,7 +121,7 @@ export default {
       .then((data) => {
         this.resData = data.RESULT.RES_DATA;
         this.result = data.RESULT.RESULT;
-        this.message = data.RESULT.RES_MESSAGE;
+        this.message = data.RESULT.RESULT_MESSAGE;
       })
       .catch((error) => {
         console.log(error)

@@ -37,7 +37,7 @@
               </div>
             </div>
             <div class="col-md-6">
-              <div class="output my-3 text-left">RESULT:
+              <div class="output my-3 text-left">RESULT CONNECTION:
                 <span :style="{ color: test_case.result_result === 'OK' ? 'green' : 'red' }">
                   {{ test_case.result_result }}
                 </span>
@@ -51,7 +51,7 @@
               </div>
             </div>
             <div class="col-md-6">
-              <div class="output">MESSAGE:
+              <div class="output">MESSAGE CONNECTION:
                 <span class="msg">{{ test_case.message_result }}</span>
               </div>
             </div>
@@ -61,7 +61,7 @@
             <pre class="res_data_text scrollspy mb-0" style="height: 200px!important;">{{ JSON.stringify(test_case.resData_expect, null, 2) }}</pre>
           </div>
           <div class="col-md-12 res_data_container">
-            <div class="title">RES DATA:</div>
+            <div class="title">RES DATA CONNECTION:</div>
             <pre class="res_data_text scrollspy mb-0" style="height: 200px!important;">{{ JSON.stringify(test_case.resData_result, null, 2) }}</pre>
           </div>
           <div class="col-md-12 py-2">
@@ -93,9 +93,8 @@
             function: 'GET_ORT_SN_INFO_BY_LOCATION',
             sn_list: 'HMH403403KC1W49AU,HMH403403HG1W49AW,HMH403403K91W49AX',
             location_list: '',
-            result_expect:'OK',
-            msg_expect:'',
-            resData_expect:[],
+            result_expect:'NG',
+            msg_expect:'LOCATION_LIST is null',
             result_compare: '',
             message_result: '',
             result_result: '',
@@ -108,9 +107,8 @@
             function: 'GET_ORT_SN_INFO_BY_LOCATION',
             sn_list: '',
             location_list: 'R2110,X2339S',
-            result_expect:'OK',
-            msg_expect:'',
-            resData_expect:[],
+            result_expect:'NG',
+            msg_expect:'SN_LIST is null',
             result_compare: '',
             message_result: '',
             result_result: '',
@@ -123,9 +121,8 @@
             function: 'GET_ORT_SN_INFO_BY_LOCATION',
             sn_list: 'HMH403403KC1W49AU;HMH403403HG1W49AW;HMH403403K91W49AX',
             location_list: 'R2110,X2339S',
-            result_expect:'OK',
-            msg_expect:'',
-            resData_expect:[],
+            result_expect:'NG',
+            msg_expect:'Syntax error at SN_LIST',
             result_compare: '',
             message_result: '',
             result_result: '',
@@ -134,28 +131,25 @@
           {
             id: 4,
             title: 'TEST CASE 4',
-            description:'SN_LIST and LOCATION are empty',
+            description: 'SN_LIST is not separated with commas (,)',
             function: 'GET_ORT_SN_INFO_BY_LOCATION',
-            sn_list:'',
-            location_list: '',
-            result_expect:'OK',
-            msg_expect:'',
-            resData_expect:[],
-            result_compare: '',
-            message_result: '',
-            result_result: '',
+            sn_list:'HMH403403KC1W49AUHMH403403HG1W49AWHMH403403K91W49AX',
+            location_list: 'R2110,X2339S',
+            result_expect: 'NG',
+            msg_expect: 'Syntax error at SN_LIST',
+            message_result:'',
+            result_result:'',
             resData_result: null,
-          },  
+          },
           {
             id: 5,
             title: 'TEST CASE 5',
-            description:'Wrong FUNCTION name',
-            function: 'GET_ORT_SN_INFO_BY_LOCATIO',
-            sn_list:'HMH22730HAJ17PK5Z,HMH22730HAM17PK5W,HMH22730HAK17PK5Y',
-            location_list: 'R2110,PCB',
+            description:'SN_LIST and LOCATION_LIST are empty',
+            function: 'GET_ORT_SN_INFO_BY_LOCATION',
+            sn_list:'',
+            location_list: '',
             result_expect:'NG',
-            msg_expect:'Can not found Function ST, please contact IT SFIS to check!',
-            // resData_expect:null,
+            msg_expect:'SN_LIST and LOCATION_LIST is null',
             result_compare: '',
             message_result: '',
             result_result: '',
@@ -164,39 +158,21 @@
           {
             id: 6,
             title: 'TEST CASE 6',
-            description: 'LOCATION and SN_LIST are normal, 1 element in SN_LIST',
-            function: 'GET_ORT_SN_INFO_BY_LOCATION',
-            sn_list:'HMH403403KC1W49AU',
-            location_list: 'R2110,X2339S',
-            result_expect:'OK',
-            msg_expect:'',	
-            resData_expect: 
-            [
-              {
-                  "NO": "1",
-                  "PANEL_SN": "SA483B26C0000P",
-                  "SERIAL_NUMBER": "HMH403403KC1W49AU",
-                  "MO_NUMBER": "1002991-VYJ105",
-                  "CONFIG": "VYJ1",
-                  "SN_SEQ": "19",
-                  "LOCATION": "R2110",
-                  "REEL_ID": "TC-0240109-0374",
-                  "COMP_PART_NO": "118S00212-02",
-                  "LOT_NO": "38M4816071",
-                  "DATE_CODE": "2350",
-                  "VENDOR": "YAGEO",
-                  "APN": "118S00212"
-              }
-            ],
+            description:'Wrong FUNCTION name',
+            function: 'GET_ORT_SN_INFO_BY_LOCATIO',
+            sn_list:'HMH22730HAJ17PK5Z,HMH22730HAM17PK5W,HMH22730HAK17PK5Y',
+            location_list: 'R2110,PCB',
+            result_expect:'NG',
+            msg_expect:'Can not found Function ST, please contact IT SFIS to check!',
             result_compare: '',
             message_result: '',
             result_result: '',
-            resData_result: null,			
-          },  
+            resData_result: null,
+          },   
           {
             id: 7,
             title: 'TEST CASE 7',
-            description: 'LOCATION and SN_LIST are normal, 3 elements in SN_LIST',
+            description: 'LOCATION_LIST and SN_LIST are normal',
             function: 'GET_ORT_SN_INFO_BY_LOCATION',
             sn_list:'HMH403403KC1W49AU,HMH403403HG1W49AW,HMH403403K91W49AX',
             location_list: 'R2110,X2339S',
@@ -255,6 +231,34 @@
             result_result: '',
             resData_result: null,			
           },
+          {
+            id: 8,
+            title: 'TEST CASE 8',
+            description: 'LOCATION_LIST is not separated with commas (,)',
+            function: 'GET_ORT_SN_INFO_BY_LOCATION',
+            sn_list:'HMH403403KC1W49AU,HMH403403HG1W49AW,HMH403403K91W49AX',
+            location_list: 'R2110X2339S',
+            result_expect:'NG',
+            msg_expect:'Syntax error at LOCATION_LIST',
+            result_compare: '',
+            message_result: '',
+            result_result: '',
+            resData_result: null,
+          },
+          {
+            id: 9,
+            title: 'TEST CASE 9',
+            description: 'LOCATION_LIST is not separated with commas (,) but semicolon (;)',
+            function: 'GET_ORT_SN_INFO_BY_LOCATION',
+            sn_list:'HMH403403KC1W49AU,HMH403403HG1W49AW,HMH403403K91W49AX',
+            location_list: 'R2110;X2339S',
+            result_expect:'NG',
+            msg_expect:'Syntax error at LOCATION_LIST',
+            result_compare: '',
+            message_result: '',
+            result_result: '',
+            resData_result: null,
+          }
         ]
       }
     },
@@ -288,6 +292,7 @@
             testCase.message_result = message_val;
             testCase.result_result = result_val;
             testCase.resData_result = resData_val;
+            console.log(responseData)
           } catch (error) {
             console.error(error);
             testCase.result_result = 'Error';
