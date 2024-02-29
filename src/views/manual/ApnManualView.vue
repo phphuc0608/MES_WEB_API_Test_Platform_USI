@@ -13,13 +13,25 @@
             <label for="apnListValue" class="form-label">APN_LIST:</label>
             <input type="text" name="apnListValue" class="form-control" id="apnListValue" v-model="apnListValue">
           </div>
+          <div class="mb-2">
+            <label for="msgExpect" class="form-label">MESSAGE EXPECTED:</label>
+            <input type="text" id="msgExpect" name="msgExpect" class="form-control" v-model="msgExpectValue">
+          </div>
         </div>
         <div class="col-md-6 ms-2">
-          <div >
+          <div class="mb-2">
             <label for="snListValue" class="form-label">SN_LIST:</label>
             <input type="text" name="snListValue" class="form-control" id="snListValue" v-model="snListValue">
           </div>
+          <div class="mb-2">
+            <label for="resultExpect" class="form-label">RESULT EXPECTED:</label>
+            <input type="text" id="resultExpect" name="resultExpect" class="form-control" v-model="resultExpectValue">
+          </div>
         </div>
+      </div>
+      <div class="col-md-12 res_data_container">
+        <label for="resDataExpect" class="title">RES DATA EXPECTED:</label>
+        <textarea id="resDataExpect" name="resDataExpect" class="form-control res_data_text scrollspy mb-0" v-model="resDataExpect"></textarea>
       </div>
       <button type="submit" class="btn btn-primary my-3 px-3" @click.prevent="callApi">
         <i class="bi bi-file-code-fill"></i> TEST
@@ -69,7 +81,7 @@
         </table>
       </div>
     </div> -->
-    <div class="col-md-12">
+    <div class="col-md-12 mt-3">
       <div class="title">RESULT:
         <span :style="{ color: result === 'OK' ? 'green' : 'red' }">{{ result }}</span>
       </div>
@@ -82,6 +94,14 @@
     <div class="col-md-12 res_data_container">
       <div class="title">RES DATA:</div>
         <pre class="res_data_text scrollspy">{{ JSON.stringify(resData, null, 2) }}</pre>
+      </div>
+      <div class="col-md-12 py-2">
+        <div class="title">
+          TEST CASE RESULT: 
+          <span class="title_compare title" :style="{ color: result_compare === 'PASS' ? 'green' : 'red'}">
+            {{ result_compare }}
+          </span>
+        </div>
       </div>
     </div>
 </template>
@@ -96,6 +116,10 @@ export default {
       functionValue: '',
       snListValue: '',
       apnListValue: '',
+      resultExpectValue: '',
+      msgExpectValue: '',
+      resDataExpect: null,
+      result_compare: '',
       result: '',
       message: '',
       resData: null
@@ -122,12 +146,37 @@ export default {
         this.resData = data.RESULT.RES_DATA; 
         this.result = data.RESULT.RESULT; 
         this.message = data.RESULT.RESULT_MESSAGE; 
+        this.compareResults();
       })
       .catch((error) => {
         console.error(error);
         this.result = 'Error'; 
         this.message = error.RESULT.RESULT_MESSAGE; 
       });
+    },
+    compareResults() {
+      let parsedResDataExpect;
+      try {
+        // Only parse resDataExpect if it has a value
+        if (this.resDataExpect) {
+          parsedResDataExpect = JSON.parse(this.resDataExpect);
+        }
+      } catch (error) {
+        console.error('Invalid JSON input:', error);
+        this.result_compare = 'FAIL';
+        return;
+      }
+
+      if (
+          ((this.msgExpectValue && this.message && this.message.trim() === this.msgExpectValue.trim()) ||
+          (!this.msgExpectValue && !this.message)) &&
+          this.resultExpectValue.trim() === this.result.trim() &&
+          ((this.resDataExpect && this.resData && JSON.stringify(this.resData) === JSON.stringify(parsedResDataExpect)) ||
+          (!this.resDataExpect && !this.resData))) {
+        this.result_compare = 'PASS';
+      } else {
+        this.result_compare = 'FAIL';
+      } 
     },
     exportReport() {
       const data = [
@@ -136,24 +185,35 @@ export default {
             Condition: {
               FUNCTION: this.functionValue,
               SN_LIST: this.snListValue,
-              APN_LIST : this.apnListValue
+              GROUP_NAME: this.groupName
             }
           }),
-          OUTPUT: JSON.stringify({
+          RESDATA: JSON.stringify({
             RESULT: {
               RESULT: this.result,
               RESULT_MESSAGE: this.message,
               RES_DATA: this.resData
             }
-          })
+          }),
+          RESDATA_EXPECT: this.resDataExpect,
+          RESULT_EXPECT: this.resultExpectValue,
+          MESSAGE_EXPECT: this.msgExpectValue,
+          RESULT_COMPARE: this.result_compare
         }
       ];
       if(data.length > 0){
-        data.unshift({ INPUT: "INPUT", OUTPUT: "OUTPUT" });
+        data.unshift({ 
+          INPUT: "INPUT", 
+          RESDATA: "RESDATA", 
+          RESDATA_EXPECT:"RESDATA EXPECT", 
+          RESULT_EXPECT: "RESULT EXPECT",          
+          MESSAGE_EXPECT: "MESSAGE EXPECT",
+          RESULT_COMPARE: "Testcase results" 
+        });
         const worksheet = utils.json_to_sheet(data, { skipHeader: true });
         const workbook = utils.book_new();
         utils.book_append_sheet(workbook, worksheet, "Report");
-        writeFile(workbook, "report_manual_apn.xlsx");
+        writeFile(workbook, "report_manual_group.xlsx");
       }else{
         alert("No Data to Export");
       }

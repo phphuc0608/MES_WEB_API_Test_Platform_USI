@@ -335,6 +335,9 @@
                 RES_DATA: testCase.resData_result
               }
             }),
+            RESDATA_EXPECT: testCase.resData_expect,
+            RESULT_EXPECT: testCase.result_expect,
+            MESSAGE_EXPECT: testCase.msg_expect,
             RESULT_COMPARE: testCase.result_compare
           });
         });
@@ -345,6 +348,9 @@
             DESCRIPTION: "Description",
             INPUT: "INPUT",
             OUTPUT: "OUTPUT",
+            RESDATA_EXPECT:"RESDATA EXPECT", 
+            RESULT_EXPECT: "RESULT EXPECT",          
+            MESSAGE_EXPECT: "MESSAGE EXPECT",
             RESULT_COMPARE: "Testcase results"
           });
 
