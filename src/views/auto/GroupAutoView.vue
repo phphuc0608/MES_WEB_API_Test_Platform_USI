@@ -188,7 +188,7 @@
           {
             id: 8,
             title: 'TEST CASE 8',
-            description: 'LOCATION and SN_LIST are normal',
+            description: 'GROUP_NAME and SN_LIST are normal',
             function: 'GET_ORT_SN_EQID_BY_GROUP',
             sn_list:'HMH403403K91W49AX,HMH403403HP1W49AP',
             group_name: 'AOI1-F',
