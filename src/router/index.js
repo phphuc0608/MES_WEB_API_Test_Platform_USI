@@ -5,6 +5,7 @@ import GroupManualView from '../views/manual/GroupManualView.vue'
 import LocationAutoView from '../views/auto/LocationAutoView.vue'
 import ApnAutoView from '../views/auto/ApnAutoView.vue'
 import GroupAutoView from '../views/auto/GroupAutoView.vue'
+import FlexibleManualView from '../views/FlexibleManualView.vue'
 const routes = [
   {
     path: '/',
@@ -35,6 +36,11 @@ const routes = [
     path:'/group_auto',
     name:'group_auto_test',
     component: GroupAutoView
+  },
+  {
+    path:'/flexible_manual',
+    name:'flexible_manual',
+    component: FlexibleManualView
   },
 ]
 

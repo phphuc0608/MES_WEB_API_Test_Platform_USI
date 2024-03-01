@@ -92,17 +92,17 @@
     </div>
     <div class="col-md-12 res_data_container">
       <div class="title">RES DATA:</div>
-        <pre class="res_data_text scrollspy">{{ JSON.stringify(resData, null, 2) }}</pre>
-      </div>
-      <div class="col-md-12 py-2">
-        <div class="title">
-          TEST CASE RESULT: 
-          <span class="title_compare title" :style="{ color: result_compare === 'PASS' ? 'green' : 'red'}">
-            {{ result_compare }}
-          </span>
-        </div>
+      <pre class="res_data_text scrollspy">{{ JSON.stringify(resData, null, 2) }}</pre>
+    </div>
+    <div class="col-md-12 py-2">
+      <div class="title">
+        TEST CASE RESULT: 
+        <span class="title_compare title" :style="{ color: result_compare === 'PASS' ? 'green' : 'red'}">
+          {{ result_compare }}
+        </span>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -191,7 +191,7 @@ export default {
               GROUP_NAME: this.groupName
             }
           }),
-          RESDATA: JSON.stringify({
+          OUTPUT: JSON.stringify({
             RESULT: {
               RESULT: this.result,
               RESULT_MESSAGE: this.message,
@@ -207,7 +207,7 @@ export default {
       if(data.length > 0){
         data.unshift({ 
           INPUT: "INPUT", 
-          RESDATA: "RESDATA", 
+          OUTPUT: "OUTPUT", 
           RESDATA_EXPECT:"RESDATA EXPECT", 
           RESULT_EXPECT: "RESULT EXPECT",          
           MESSAGE_EXPECT: "MESSAGE EXPECT",

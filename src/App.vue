@@ -26,6 +26,9 @@
             </li>
           </ul>
         </div>
+        <div class="nav-item">
+          <router-link to="/flexible_manual" class="nav-link nav-item mx-1">Flexible manual test</router-link>
+        </div>
       </div>
     </div>
 </nav>
