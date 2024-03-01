@@ -40,7 +40,6 @@
         <i class="bi bi-file-earmark-spreadsheet-fill"></i> EXPORT REPORT
       </button>
     </form>
-    <!-- <div class="title py-2">OUTPUT</div>
     <div id="result_table" class="col-md-12">
       <div class="table-responsive">
         <table class="table table-striped table-bordered custom-width">
