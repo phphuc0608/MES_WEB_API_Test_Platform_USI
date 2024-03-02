@@ -40,46 +40,6 @@
         <i class="bi bi-file-earmark-spreadsheet-fill"></i> EXPORT REPORT
       </button>
     </form>
-    <div id="result_table" class="col-md-12">
-      <div class="table-responsive">
-        <table class="table table-striped table-bordered custom-width">
-          <thead>
-            <tr>
-              <th>NO</th>
-              <th>PANEL_SN</th>
-              <th>SERIAL_NUMBER</th>
-              <th>MO_NUMBER</th>
-              <th>CONFIG</th>
-              <th>SN_SEQ</th>
-              <th>LOCATION</th>
-              <th>REEL_ID</th>
-              <th>COMP_PART_NO</th>
-              <th>LOT_NO</th>
-              <th>DATE_CODE</th>
-              <th>VENDOR</th>
-              <th>APN</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>HA5026110207Y6</td>
-              <td>HMH22730HAJ17PK5Z</td>
-              <td>1000112-VZR301</td>
-              <td>VZR3</td>
-              <td>1</td>
-              <td>R2110</td>
-              <td>TC-0220623-2989</td>
-              <td>107S00328-01</td>
-              <td>LM2111308</td>
-              <td>20220422</td>
-              <td>THIN FILM</td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div> -->
     <div class="col-md-12 mt-3">
       <div class="title">RESULT:
         <span :style="{ color: result === 'OK' ? 'green' : 'red' }">{{ result }}</span>
