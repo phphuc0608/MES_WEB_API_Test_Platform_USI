@@ -39,6 +39,9 @@
       <button type="button" class="btn btn-success mx-3 my-3 px-3" @click="exportReport">
         <i class="bi bi-file-earmark-spreadsheet-fill"></i> EXPORT REPORT
       </button>
+      <button type="button" class="btn btn-danger my-3 px-3" @click="clearTextbox">
+        <i class="bi bi-x-circle-fill"></i> CLEAR
+      </button>
     </form>
     <div class="col-md-12 mt-3">
       <div class="title">RESULT:
@@ -176,6 +179,18 @@ export default {
       }else{
         alert("No Data to Export");
       }
+    },
+    clearTextbox(){
+      this.functionValue = '';
+      this.snListValue = '';
+      this.apnListValue = '';
+      this.resultExpectValue = '';
+      this.msgExpectValue = '';
+      this.resDataExpect = '';
+      this.result_compare = '';
+      this.result = '';
+      this.message = '';
+      this.resData = null;
     }
   }
 }

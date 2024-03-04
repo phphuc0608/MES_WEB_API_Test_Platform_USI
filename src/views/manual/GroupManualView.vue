@@ -39,6 +39,9 @@
       <button type="button" class="btn btn-success mx-3 my-3 px-3" @click="exportReport">
         <i class="bi bi-file-earmark-spreadsheet-fill"></i> EXPORT REPORT
       </button>
+      <button type="button" class="btn btn-danger my-3 px-3" @click="clearTextbox">
+        <i class="bi bi-x-circle-fill"></i> CLEAR
+      </button>
     </form>
     <div class="col-md-12 mt-3">
       <div class="title">RESULT:
@@ -127,13 +130,9 @@ export default {
       }
 
       if (
-          // Compare msgExpectValue to message only if both have a value
-          // If only one has a value, return 'FAIL'
           ((this.msgExpectValue && this.message && this.message.trim() === this.msgExpectValue.trim()) ||
           (!this.msgExpectValue && !this.message)) &&
           this.resultExpectValue.trim() === this.result.trim() &&
-          // Compare resData to parsedResDataExpect only if both have a value
-          // If only one has a value, return 'FAIL'
           ((this.resDataExpect && this.resData && JSON.stringify(this.resData) === JSON.stringify(parsedResDataExpect)) ||
           (!this.resDataExpect && !this.resData))) {
         this.result_compare = 'PASS';
@@ -180,6 +179,18 @@ export default {
       }else{
         alert("No Data to Export");
       }
+    },
+    clearTextbox(){
+      this.functionValue = '';
+      this.snListValue = '';
+      this.groupName = '';
+      this.resultExpectValue = '';
+      this.msgExpectValue = '';
+      this.resDataExpect = '';
+      this.result_compare = '';
+      this.result = '';
+      this.message = '';
+      this.resData = null;
     }
   }
 }

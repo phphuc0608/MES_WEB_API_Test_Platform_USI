@@ -27,16 +27,19 @@
         <label for="outputExpect" class="title">OUTPUT EXPECTED:</label>
         <textarea id="outputExpect" name="outputExpect" style="height: 220px;" class="form-control res_data_text scrollspy mb-0" v-model="outputExpect"></textarea>
       </div>
-      <div class="title py-2">OUTPUT</div>
-      <div class="col-md-12 res_data_container">
-        <pre class="res_data_text scrollspy" >{{ JSON.stringify(outputAPI, null, 2) }}</pre>
-      </div>
       <button type="submit" class="btn btn-primary my-3 px-3" @click.prevent="callApi">
           <i class="bi bi-file-code-fill"></i> TEST
         </button>
       <button type="button" class="btn btn-success mx-3 my-3 px-3" @click="exportReport">
         <i class="bi bi-file-earmark-spreadsheet-fill"></i> EXPORT REPORT
       </button>
+      <button type="button" class="btn btn-danger my-3 px-3" @click="clearTextbox">
+        <i class="bi bi-x-circle-fill"></i> CLEAR
+      </button>
+      <div class="title py-2">OUTPUT</div>
+      <div class="col-md-12 res_data_container">
+        <pre class="res_data_text scrollspy" >{{ JSON.stringify(outputAPI, null, 2) }}</pre>
+      </div>
     </form>
       <div class="col-md-12 py-2">
         <div class="title">
@@ -146,6 +149,13 @@ export default {
       }else{
         alert("No Data to Export");
       }
+    },
+    clearTextbox(){
+        this.APIVal = '';
+        this.inputJSON = '';
+        this.outputExpect = '';
+        this.outputAPI = null;
+        this.result_compare = '';
     }
   }
 }

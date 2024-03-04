@@ -335,7 +335,7 @@
                 RES_DATA: testCase.resData_result
               }
             }),
-            RESDATA_EXPECT: testCase.resData_expect,
+            RESDATA_EXPECT: JSON.stringify(testCase.resData_expect),
             RESULT_EXPECT: testCase.result_expect,
             MESSAGE_EXPECT: testCase.msg_expect,
             RESULT_COMPARE: testCase.result_compare

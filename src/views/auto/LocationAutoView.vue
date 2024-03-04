@@ -276,7 +276,6 @@
               LOCATION_LIST: location_list
             },
           };
-          console.log(data);
           try {
             const response = await fetch('http://10.5.0.136:54188/MES_WEB_API/api/mesapi', {
               method: 'POST',
@@ -335,30 +334,28 @@
                 RES_DATA: testCase.resData_result
               }
             }),
-            RESDATA_EXPECT: testCase.resData_expect,
+            RESDATA_EXPECT: JSON.stringify(testCase.resData_expect),
             RESULT_EXPECT: testCase.result_expect,
             MESSAGE_EXPECT: testCase.msg_expect,
             RESULT_COMPARE: testCase.result_compare
           });
         });
-
         if (data.length > 0) {
           data.unshift({
             ID: "ID",
             DESCRIPTION: "Description",
             INPUT: "INPUT",
             OUTPUT: "OUTPUT",
-            RESDATA_EXPECT:"RESDATA EXPECT", 
+            RESDATA_EXPECT: "RESDATA EXPECT", 
             RESULT_EXPECT: "RESULT EXPECT",          
             MESSAGE_EXPECT: "MESSAGE EXPECT",
             RESULT_COMPARE: "Testcase results"
           });
-
           const worksheet = utils.json_to_sheet(data, { skipHeader: true });
           const workbook = utils.book_new();
           utils.book_append_sheet(workbook, worksheet, "Report");
           writeFile(workbook, "report_auto_location.xlsx");
-        } else {
+        }else{
           alert("No Data to Export");
         }
       },
